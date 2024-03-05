@@ -1,1 +1,1 @@
-# terraform-aws-iprofile
+# Terraform code for iprofile project
