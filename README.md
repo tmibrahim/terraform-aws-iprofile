@@ -6,6 +6,8 @@
 ## Cloud Provider: AWS
 ## Services
 ### Elastic Beanstalk
+### Apache Tomcat
+### Bastion Host
 ### Mysql
 ### Memcached
 ### RabbitMQ
