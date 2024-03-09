@@ -6,7 +6,6 @@ variable AMIS {
   type = map
   default = {
     eu-west-1 = "ami-0d940f23d527c3ab1"
-    eu-west-1 = "ami-01505b5fb77668db8"
   } 
 }
 
