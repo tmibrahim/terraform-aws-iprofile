@@ -11,9 +11,6 @@ resource "aws_elasticache_subnet_group" "vprofile-ecache-subgrp" {
   name = "vprofile-ecache-subgrp"
   description = "VPC ElastiCache Subnet Group"
   subnet_ids = [module.vps.private_subnets[0], module.vpc.private_subnets[1], module.vpc.private_subnets[2]]
-  tags = {
-    Name = "Subnet Group for ElastiCache"
-  }
 }
 
 resource "aws_db_instance" "vprofile-rds" {
