@@ -38,9 +38,85 @@ resource "aws_elastic_beanstalk_environment" "vprofile-bean-env" {
     name = "EC2KeyName"
     value = aws_key_pair.vprofilekey.key_name
   }
+    setting {
+    namespace = "aws:autoscaling:asg"
+    name = "Avsailability Zones"
+    value = "Any 3"
+  }
   setting {
     namespace = "aws:autoscaling:asg"
     name = "MinSize"
     value = "1"
   }
+  setting {
+    namespace = "aws:autoscaling:asg"
+    name = "MaxSize"
+    value = "4"
+  }
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name = "environment"
+    value = "prod"
+  }
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name = "LOGGING_APPENDER"
+    value = "GRAYLOG"
+  }
+  setting {
+    namespace = "aws:elasticbeanstalk:healthreporting:system"
+    name = "SystemType"
+    value = "basic"
+  }
+  setting {
+    namespace = "aws:autoscaling:updadepoliciy:rollingupdate"
+    name = "RollingUpdateEnabled"
+    value = "true"
+  }
+  setting {
+    namespace = "aws:autoscaling:updadepoliciy:rollingupdate"
+    name = "RollingUpdateType"
+    value = "Health"
+  }
+  setting {
+    namespace = "aws:autoscaling:updadepoliciy:rollingupdate"
+    name = "MaxBatchSize"
+    value = "1"
+  }
+  setting {
+    namespace = "aws:elb:loadbalancer"
+    name = "CrossZone"
+    value = "true"
+  }
+  setting {
+    namespace = "aws:elasticbeanstalk:environment:process:default"
+    name = "StickinessEnabled"
+    value = true
+  }
+  setting {
+    namespace = "aws:elasticbeanstalk:command"
+    name = "BatchSizeType"
+    value = "Fixed"
+  }
+  setting {
+    namespace = "aws:elasticbeanstalk:command"
+    name = "BatchSize"
+    value = "1"
+  }
+  setting {
+    namespace = "aws:elasticbeanstalk:command"
+    name = "DeploymentPolicy"
+    value = "Rolling"
+  }
+  setting {
+    namespace = "aws:autoScaling:launchconfiguration"
+    name = "SecurityGroups"
+    value = aws_security_group.vprofile-prod-sg.id
+  }
+  setting {
+    namespace = "aws:elbv2:loadbalancer"
+    name = "SecurityGroups"
+    value = aws_security_group.vprofile-bean-elb-sg.id
+  }
+  depends_on = [ aws_security_group.vprofile-bean-elb-sg,aws_security_group.vprofile-prod-sg ]
 }
